@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+    <persistence-unit name="hello">
+        <properties>
+            <!-- 필수 속성 -->
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/jpashop"/>
+            <!--
+            Dialect
+            데이터베이스간 맞지 않는 문법(방언)을 매칭
+            약 40가지 지원
+            -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+
+            <!-- 옵션 -->
+            <property name="hibernate.show_sql" value="true"/>          <!-- 쿼리 로그 출력 -->
+            <property name="hibernate.format_sql" value="true"/>        <!-- 포맷팅 -->
+            <property name="hibernate.use_sql_comments" value="true"/>  <!-- 쿼리 주석 -->
+            <property name="hibernate.jdbc.batch_size" value="10"/>     <!-- 해당 크기만큼 모아서 DB에 쿼리를 보냄 -->
+            <!--
+            테이블 처리, 운영 장비에 절대 create(Drop 후 Create 함), create-drop, update(alter, DB 락 발생) 사용하면 안됨
+            개발 초기(Local) : create or update
+            테스트 서버(Mid) : update or validate(제일 나은듯)
+            스테이징과 운영 서버 : validate or none
+            -->
+            <property name="hibernate.hbm2ddl.auto" value="create" />
+        </properties>
+    </persistence-unit>
+</persistence>
